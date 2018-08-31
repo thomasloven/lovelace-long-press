@@ -25,3 +25,11 @@ And probably most custom elements that have an `entity` property.
         left: 50%
         top: 50%
 ```
+
+## Note for touch devices
+
+On touch devices it can happen that the more-info dialog pops up, and then
+closes as soon as you lift your finger.
+
+I'm trying to figure that one out, and the best workaround I found is to just
+drag your finger over the screen a tiny bit before lifting it...
