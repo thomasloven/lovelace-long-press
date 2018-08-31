@@ -16,7 +16,7 @@ And probably most custom elements that have an `entity` property.
   - type: picture-elements
     image: ...
     elements:
-    - type: custom-long-press
+    - type: custom:long-press
       child:
         type: state-icon
         entity: light.my_lamp
