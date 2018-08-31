@@ -30,13 +30,12 @@ class LongPress extends Polymer.Element {
   }
 
   click(e) {
-    let rect = this.child.getBoundingClientRect();
+    let rect = this.getBoundingClientRect();
     let ev = e;
     if(e.touches)
       e = e.touches[0];
     if( e.clientX < rect.left || e.clientX > rect.right || e.clientY < rect.top || e.clientY > rect.bottom)
       return;
-    console.log("click");
     if(this.held) {
       ev.stopPropagation();
     }
@@ -44,18 +43,16 @@ class LongPress extends Polymer.Element {
   }
 
   mouseDown(e) {
-    let rect = this.child.getBoundingClientRect();
+    let rect = this.getBoundingClientRect();
     let ev = e;
     if(e.touches)
       e = e.touches[0];
-    console.log(e);
-    console.log(rect);
     if( e.clientX < rect.left || e.clientX > rect.right || e.clientY < rect.top || e.clientY > rect.bottom)
       return;
 
     ev.stopPropagation();
     this.held = false;
-    this.timer = setTimeout((e) => this.onHold(), 1000, e);
+    this.timer = setTimeout((e) => this.onHold(), 300, e);
   }
 
   mouseUp(e) {
@@ -76,7 +73,6 @@ class LongPress extends Polymer.Element {
       composed: true,
     });
     ev.detail = { entityId };
-    console.log(ev);
     this.dispatchEvent(ev);
   }
 }
