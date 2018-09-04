@@ -27,9 +27,23 @@ class LongPress extends Polymer.Element {
 
   set hass(hass) {
     this.child.hass = hass;
+    this._hass = hass;
+    if(hass.moreInfoEntityId) {
+      this.held = false;
+      if(this.timer) {
+        clearTimeout(this.timer);
+        this.timer = null;
+      }
+    }
   }
 
   click(e) {
+    if (this._hass.moreInfoEntityId) {
+      if(this.held)
+        e.stopPropagation();
+      this.held = false;
+      return;
+    }
     let rect = this.getBoundingClientRect();
     let ev = e;
     if(e.touches)
@@ -43,6 +57,7 @@ class LongPress extends Polymer.Element {
   }
 
   mouseDown(e) {
+    if (this._hass.moreInfoEntityId) return;
     let rect = this.getBoundingClientRect();
     let ev = e;
     if(e.touches)
@@ -56,6 +71,7 @@ class LongPress extends Polymer.Element {
   }
 
   mouseUp(e) {
+    if (this._hass.moreInfoEntityId) return;
     if(this.timer) {
       clearTimeout(this.timer);
       this.timer = null;
