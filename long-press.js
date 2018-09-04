@@ -2,6 +2,7 @@ class LongPress extends Polymer.Element {
 
   ready() {
     super.ready();
+    document.addEventListener('click', (e) => this._reset());
     document.addEventListener('mousedown', (e) => this.mouseDown(e, false));
     document.addEventListener('touchstart', (e) => this.mouseDown(e, true));
     document.addEventListener('mouseup', (e) => this.mouseUp(e, false));
@@ -42,17 +43,20 @@ class LongPress extends Polymer.Element {
       clearTimeout(this.timer);
       this.timer = null;
     }
+    if(document.querySelector('home-assistant').$$('ha-more-info-dialog'))
+      document.querySelector('home-assistant').$$('ha-more-info-dialog').removeAttribute('modal');
   }
 
   mouseDown(ev, touch) {
     if (!this.enabled) return;
-    console.log(ev);
     if(!touch && ev.button != 0) return;
     let rect = this.getBoundingClientRect();
     let cx = (touch)? ev.touches[0].clientX : ev.clientX;
     let cy = (touch)? ev.touches[0].clientY : ev.clientY;
     if( cx < rect.left || cx > rect.right || cy < rect.top || cy > rect.bottom)
       return;
+
+    this._reset();
 
     this.timer = setTimeout((e) => this.onHold(), 300);
   }
@@ -72,6 +76,7 @@ class LongPress extends Polymer.Element {
     const entityId = this.entity;
     ev.detail = { entityId };
     this.dispatchEvent(ev);
+    document.querySelector('home-assistant').$$('ha-more-info-dialog').setAttribute('modal', true);
   }
 }
 
