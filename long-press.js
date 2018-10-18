@@ -44,7 +44,7 @@ class LongPress extends Polymer.Element {
       clearTimeout(this.timer);
       this.timer = null;
     }
-    let dlg = document.querySelector('home-assistant').$$('ha-more-info-dialog');
+    let dlg = document.querySelector('home-assistant').shadowRoot.querySelector('ha-more-info-dialog');
     if(dlg)
       dlg.removeAttribute('modal');
     this.cover.style.visibility = 'hidden';
