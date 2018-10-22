@@ -93,7 +93,7 @@ class LongPress extends Polymer.Element {
       const entityId = this._config.entity || this._config.child.entity;
       ev.detail = { entityId };
       this.dispatchEvent(ev);
-      document.querySelector('home-assistant').$$('ha-more-info-dialog').setAttribute('modal', true);
+      document.querySelector('home-assistant').shadowRoot.querySelector('ha-more-info-dialog').setAttribute('modal', true);
     }
   }
 }
